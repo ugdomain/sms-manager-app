@@ -10,9 +10,9 @@ void callbackDispatcher() {
     return Future.value(true);
   });
 }
-void main() {
 
-runApp(const MyApp());
+void main() {
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'SMS Manager App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -81,36 +82,37 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ...messages.map((e) => Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Message : ${e.sms}',
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ...messages
+                .map((e) => Card(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 10),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Message : ${e.sms}',
+                            ),
+                            Text(
+                              'Sender : ${e.sender}',
+                            ),
+                            Text(
+                              'Time : ${e.time}',
+                            ),
+                          ],
                         ),
-                        Text(
-                          'Sender : ${e.sender}',
-                        ),
-                        Text(
-                          'Time : ${e.time}',
-                        ),
-                      ],
-                    ),
-                  ),
-                )).toList(),
-                const SizedBox(height: 50,)
-              ],
-            ),
-          ),
+                      ),
+                    ))
+                .toList(),
+            const SizedBox(
+              height: 50,
+            )
+          ],
         ),
       ),
     );
